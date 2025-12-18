@@ -47,7 +47,12 @@ function compute() {
     const TDAQ = Number(document.getElementById('in_DAQ').value)*24*3600;
     const hbar = 1.054e-34;
     const eCharge = 1.602e-19;    
-    document.getElementById('out_de').textContent = hbar/2/Eeff/tau/(Ndot*TDAQ)**0.5/eCharge*1e2;
+ const de =
+    hbar / 2 /
+    (Eeff * tau * Math.sqrt(Ndot * TDAQ)) /
+    eCharge * 1e2;
+
+document.getElementById('out_de').textContent = de.toExponential(2);
 }
 </script>
 
