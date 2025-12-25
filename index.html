@@ -97,51 +97,55 @@ h1 {
 
   <div class="panel">
     <div class="caption">trap type–no multiplexing (e.g. JILA EDM I&II)</div>
-    <img src="eEDM_Beam.png" width="150">
+    <img src="eEDM_Trap.png" width="150">
     <div class="form-row">
       <label>Effective electric field:</label>
-      <input type="number" value="78"> GV/cm
+      <input type="number" value="78" id="Eeff_Trap"> GV/cm
     </div>
     <div class="form-row">
       <label>Spin precession time:</label>
-      <input type="number" value="0.005"> s
+      <input type="number" value="0.005" id="tau_Trap"> s
     </div>
     <div class="form-row">
-      <label>Count rate:</label>
-      <input type="number" value="3e8"> /s
+      <label>N per shot:</label>
+      <input type="number" value="200" id="Nshot_Trap">
     </div>
     <div class="form-row">
       <label>Data acquisition:</label>
-      <input type="number" value="1"> day
+      <input type="number" value="1" id="DAQ_Trap> day
     </div>
       <button onclick="compute_Trap()">Compute</button>
-    <p>&delta;d<sub>e</sub> = <span id="out_de">0</span> e·cm</p>
+    <p>&delta;d<sub>e</sub> = <span id="out_de_Trap">0</span> e·cm</p>
     
     </div> 
 
 
   <div class="panel">
     <div class="caption">trap type–multiplexed (e.g. JILA EDM III)</div>
-    <img src="eEDM_Beam.png" width="150">
+    <img src="eEDM_Trap_Multi.png" width="150">
     <div class="form-row">
       <label>Effective electric field:</label>
-      <input type="number" value="78"> GV/cm
+      <input type="number" value="78" id="Eeff_Trap_Multi"> GV/cm
     </div>
     <div class="form-row">
       <label>Spin precession time:</label>
-      <input type="number" value="0.005"> s
+      <input type="number" value="0.005" id="tau_Trap_Multi"> s
     </div>
     <div class="form-row">
-      <label>Count rate:</label>
-      <input type="number" value="3e8"> /s
+      <label>N per shot:</label>
+      <input type="number" value="3e8" id="Ndot_Trap_Multi">
+    </div>
+    <div class="form-row">
+      <label>rep rate:</label>
+      <input type="number" value="1" id="Frep_Trap_Multi"> Hz
     </div>
     <div class="form-row">
       <label>Data acquisition:</label>
-      <input type="number" value="1"> day
+      <input type="number" value="1" id="DAQ_Trap_Multi> day
     </div>
     
-          <button onclick="compute_Trap_NoMultiplex()">Compute</button>
-    <p>&delta;d<sub>e</sub> = <span id="out_de">0</span> e·cm</p>
+          <button onclick="compute_Trap_Multi()">Compute</button>
+    <p>&delta;d<sub>e</sub> = <span id="out_de_Multi">0</span> e·cm</p>
     
   </div>
   </div>
@@ -161,6 +165,37 @@ function compute_beam() {
     document.getElementById('out_de_Beam').textContent = de.toExponential(2);
 }
 </script>
+
+    <script>
+function compute_Trap() {
+    const Eeff = Number(document.getElementById('Eeff_Trap').value) * 1e9 * 1e2;
+    const tau = Number(document.getElementById('tau_Trap').value);
+    const Nshot = Number(document.getElementById('Nshot_Trap').value);
+    const TDAQ = Number(document.getElementById('DAQ_Trap').value) * 24 * 3600;
+    const hbar = 1.054e-34;
+    const eCharge = 1.602e-19;
+
+    const de = (hbar / 2) / (Eeff * Math.sqrt(tau *Nshot * TDAQ)) / eCharge * 1e2;
+    document.getElementById('out_de_Trap').textContent = de.toExponential(2);
+}
+</script>
+
+    
+    <script>
+function compute_Trap_Multi() {
+    const Eeff = Number(document.getElementById('Eeff_Trap_Multi').value) * 1e9 * 1e2;
+    const tau = Number(document.getElementById('tau_Trap_Multi').value);
+    const Nshot = Number(document.getElementById('Nshot_Trap_Multi').value);
+    const Frep = Number(document.getElementById('Frep_Trap_Multi').value);
+    const TDAQ = Number(document.getElementById('DAQ_Trap_Multi').value) * 24 * 3600;
+    const hbar = 1.054e-34;
+    const eCharge = 1.602e-19;
+
+    const de = (hbar / 2) / (Eeff * tau * Math.sqrt(Frep *Nshot * TDAQ)) / eCharge * 1e2;
+    document.getElementById('out_de_Trap').textContent = de.toExponential(2);
+}
+</script>
+
 
 
 </body>
