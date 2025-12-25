@@ -74,19 +74,19 @@ h1 {
     <img src="eEDM_Beam.png" width="300">
         <div class="form-row">
       <label>Effective electric field:</label>
-      <input type="number" value="78"> GV/cm
+      <input type="number" value="78" id="Eeff_Beam"> GV/cm
     </div>
     <div class="form-row">
       <label>Spin precession time:</label>
-      <input type="number" value="0.005"> s
+      <input type="number" value="0.005" id="tau_Beam"> s
     </div>
     <div class="form-row">
       <label>Count rate:</label>
-      <input type="number" value="3e8"> /s
+      <input type="number" value="3e8" id="Ndot_Beam"> /s
     </div>
     <div class="form-row">
       <label>Data acquisition:</label>
-      <input type="number" value="1"> day
+      <input type="number" value="1" id="DAQ_Beam"> day
     </div>
     
     <button onclick="compute_beam()">Compute</button>
@@ -150,10 +150,10 @@ h1 {
 
 <script>
 function compute_beam(panel) {
-    const Eeff = Number(document.getElementById('Eeff'+panel).value) * 1e9 * 1e2;
-    const tau = Number(document.getElementById('tau'+panel).value);
-    const Ndot = Number(document.getElementById('Ndot'+panel).value);
-    const TDAQ = Number(document.getElementById('DAQ'+panel).value) * 24 * 3600;
+    const Eeff = Number(document.getElementById('Eeff_Beam'+panel).value) * 1e9 * 1e2;
+    const tau = Number(document.getElementById('tau_Beam'+panel).value);
+    const Ndot = Number(document.getElementById('Ndot_Beam'+panel).value);
+    const TDAQ = Number(document.getElementById('DAQ_Beam'+panel).value) * 24 * 3600;
     const hbar = 1.054e-34;
     const eCharge = 1.602e-19;
 
