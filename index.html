@@ -71,6 +71,16 @@ h1 {
     margin-right: 5px;
 }
 
+.form-row label2 {
+    width: 40px;
+    font-weight: bold;
+}
+
+.form-row input2 {
+    width: 200px;
+    margin-right: 5px;
+}
+
 .form-row title {
     width: 100px;
     font-weight: bold;
@@ -134,7 +144,17 @@ $W_S$: NSM sensitivity parameter<br>
       <label><p></p> </label>
           </div>
     <p>$\delta f$ = <span id="out_df_Beam">0</span> $\mu$Hz</p>
-    
+    <!-- showing EDMs -->
+<div class="form-row">
+  <label2>$\mathcal{E}_{\rm eff}$:</label2>
+  <input type="number" id="Eeff_Beam" value="78" step="1"
+         style="width:40px;" oninput="compute_Beam()">
+  GV/cm → $~d_e =~$ <span id="out_de_Beam">0</span>$~e\cdot{\rm cm}$
+</div>   
+
+<p>
+  
+</p>
     </div> 
 
 
@@ -192,7 +212,7 @@ $W_S$: NSM sensitivity parameter<br>
 
 <script>
 function compute_Beam() {
-    //const Eeff = Number(document.getElementById('Eeff_Beam').value) * 1e9 * 1e2;
+    const Eeff = Number(document.getElementById('Eeff_Beam').value) * 1e9 * 1e2;
     const tau = Number(document.getElementById('tau_Beam').value);
     const Ndot = Number(document.getElementById('Ndot_Beam').value);
     const TDAQ = Number(document.getElementById('DAQ_Beam').value) * 24 * 3600;
@@ -200,7 +220,7 @@ function compute_Beam() {
     const eCharge = 1.602e-19;
 
     const df = 1 / (2 * Math.PI* tau * Math.sqrt(Ndot * TDAQ)) * 1e6;
-    document.getElementById('out_df_Beam').textContent = df.toExponential(2);
+    document.getElementById('out_df_Beam').textContent = financial(df);
     
     const de = (hbar / 2) / (Eeff * tau * Math.sqrt(Ndot * TDAQ)) / eCharge * 1e2;
     document.getElementById('out_de_Beam').textContent = de.toExponential(2);
@@ -217,7 +237,7 @@ function compute_Trap() {
     const eCharge = 1.602e-19;
 
     const df = 1 / (2 * Math.PI * Math.sqrt(tau *Nshot * TDAQ)) * 1e6;
-    document.getElementById('out_df_Trap').textContent = df.toExponential(2);
+    document.getElementById('out_df_Trap').textContent = financial(df);
 
     const de = (hbar / 2) / (Eeff * Math.sqrt(tau *Nshot * TDAQ)) / eCharge * 1e2;
     document.getElementById('out_de_Trap').textContent = de.toExponential(2);
@@ -236,7 +256,7 @@ function compute_Trap_Multi() {
     const eCharge = 1.602e-19;
 
     const df = 1 / (2 * Math.PI * tau * Math.sqrt(Frep *Nshot * TDAQ)) * 1e6;
-    document.getElementById('out_df_Multi').textContent = df.toExponential(2);
+    document.getElementById('out_df_Multi').textContent = financial(df);
     
     const de = (hbar / 2) / (Eeff * tau * Math.sqrt(Frep *Nshot * TDAQ)) / eCharge * 1e2;
     document.getElementById('out_de_Multi').textContent = de.toExponential(2);
@@ -249,6 +269,10 @@ window.onload = function() {
     compute_Trap();
     compute_Trap_Multi();
 };
+
+function financial(x) {
+  return Number.parseFloat(x).toFixed(3);
+}
 </script>
 
 
