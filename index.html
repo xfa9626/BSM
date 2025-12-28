@@ -62,7 +62,7 @@ h1 {
 }
 
 .form-row label {
-    width: 200px;
+    width: 250px;
     font-weight: bold;
 }
 
@@ -112,7 +112,7 @@ tr:nth-child(even) {
 $\delta f = \frac{2}{h}\left(d_e\mathcal{E}_\textrm{eff} + MW_M + SW_S\right)$<br><br>
 
 $\delta f$: frequency resolution<br>
-$d_e$: electron EDM<br>
+$d_e$: electron electric dipole moment (EDM)<br>
 $\mathcal{E}_\textrm{eff}$: effective electric field<br>
 $M$: nuclear magnetic quadrupole moment (MQM)<br>
 $W_M$: MQM sensitivity parameter<br>
@@ -148,13 +148,19 @@ $W_S$: NSM sensitivity parameter<br>
 <div class="form-row">
   <label2>$\mathcal{E}_{\rm eff}$:</label2>
   <input type="number" id="Eeff_Beam" value="78" step="1"
-         style="width:40px;" oninput="compute_Beam()">
-  GV/cm → $~d_e =~$ <span id="out_de_Beam">0</span>$~e\cdot{\rm cm}$
+         style="width:40px;" oninput="compute_Beam()">  GV/cm → $~d_e =~$ <span id="out_de_Beam">0</span>$~e\cdot{\rm cm}$
 </div>   
+<div class="form-row">
+  <label2>$W_M$:</label2>
+  <input type="number" id="WM_Beam" value="1" step="1"
+         style="width:60px;" oninput="compute_Beam()">  $10^{33}~$ Hz/$e\cdot\rm{cm}^2~$ → $~M =~$ <span id="out_M_Beam">0</span>$~e\cdot{\rm fm}^2$
+</div> 
+<div class="form-row">
+  <label2>$W_S$:</label2>
+  <input type="number" id="WS_Beam" value="30000" step="1"
+         style="width:60px;" oninput="compute_Beam()">  a.u. → $~S =~$ <span id="out_S_Beam">0</span>$~e\cdot{\rm fm}^3$
+</div> 
 
-<p>
-  
-</p>
     </div> 
 
 
@@ -212,7 +218,7 @@ $W_S$: NSM sensitivity parameter<br>
 
 <script>
 function compute_Beam() {
-    const Eeff = Number(document.getElementById('Eeff_Beam').value) * 1e9 * 1e2;
+    
     const tau = Number(document.getElementById('tau_Beam').value);
     const Ndot = Number(document.getElementById('Ndot_Beam').value);
     const TDAQ = Number(document.getElementById('DAQ_Beam').value) * 24 * 3600;
@@ -222,8 +228,17 @@ function compute_Beam() {
     const df = 1 / (2 * Math.PI* tau * Math.sqrt(Ndot * TDAQ)) * 1e6;
     document.getElementById('out_df_Beam').textContent = financial(df);
     
-    const de = (hbar / 2) / (Eeff * tau * Math.sqrt(Ndot * TDAQ)) / eCharge * 1e2;
+    const Eeff = Number(document.getElementById('Eeff_Beam').value) * 1e9 * 1e2;
+    const de = df*1e-6 *(2*Math.PI *hbar/2)/ Eeff / eCharge * 1e2;
     document.getElementById('out_de_Beam').textContent = de.toExponential(2);
+     
+    const WM = Number(document.getElementById('WM_Beam').value)*1e33;
+    const MQM = df*1e-6 /2/ WM;
+    document.getElementById('out_M_Beam').textContent = MQM.toExponential(2);   
+
+    const WS = Number(document.getElementById('WS_Beam').value) * 44.8; // 44.8 is a.u. to Hz/e*fm^3
+    const SM = df*1e-6 /2/ WS;
+    document.getElementById('out_S_Beam').textContent = SM.toExponential(2);
 }
 </script>
 
@@ -239,7 +254,7 @@ function compute_Trap() {
     const df = 1 / (2 * Math.PI * Math.sqrt(tau *Nshot * TDAQ)) * 1e6;
     document.getElementById('out_df_Trap').textContent = financial(df);
 
-    const de = (hbar / 2) / (Eeff * Math.sqrt(tau *Nshot * TDAQ)) / eCharge * 1e2;
+    const de = df*1e-6 *(2*Math.PI *hbar/2)/ Eeff / eCharge * 1e2*1e-6;
     document.getElementById('out_de_Trap').textContent = de.toExponential(2);
 }
 </script>
@@ -255,10 +270,11 @@ function compute_Trap_Multi() {
     const hbar = 1.054e-34;
     const eCharge = 1.602e-19;
 
-    const df = 1 / (2 * Math.PI * tau * Math.sqrt(Frep *Nshot * TDAQ)) * 1e6;
+    const df*1e-6 = 1 / (2 * Math.PI * tau * Math.sqrt(Frep *Nshot * TDAQ)) * 1e6;
     document.getElementById('out_df_Multi').textContent = financial(df);
     
-    const de = (hbar / 2) / (Eeff * tau * Math.sqrt(Frep *Nshot * TDAQ)) / eCharge * 1e2;
+    const de = df *(2*Math.PI *hbar/2)/ Eeff / eCharge * 1e2;
+
     document.getElementById('out_de_Multi').textContent = de.toExponential(2);
 }
 </script>
