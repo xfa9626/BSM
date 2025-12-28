@@ -385,7 +385,9 @@ function compute_BSM() {
     const auToHz = 44.;
     const cLight=299792458;
     const g_de=0.6;
+    const g_dq=1.2;
     const mElectronMass=9.1e-31;
+    const mDownMass=8.3e-30;
     const TeVTokg=1e12*eCharge/(cLight**2)
 
     const df = Number(document.getElementById('df_BSM').value)*uHz;
@@ -408,11 +410,25 @@ function compute_BSM() {
     document.getElementById('out_M_BSM').textContent = (M/eCharge/cm/cm).toExponential(2);
     const dq_MQM=M/M_dq;
     document.getElementById('out_dq_MQM_BSM').textContent = (dq_MQM/cm).toExponential(2);
+ 
+    const M_NP_1_MQM=Math.sqrt(1/dq_MQM*hbar/cLight*(g_dq**2/16/Math.PI**2)**1*mDownMass)
+    const M_NP_2_MQM=Math.sqrt(1/dq_MQM*hbar/cLight*(g_dq**2/16/Math.PI**2)**2*mDownMass)
+
+    document.getElementById('out_NP_1_M_BSM').textContent = financial(M_NP_1_MQM/TeVTokg,0);
+    document.getElementById('out_NP_2_M_BSM').textContent = financial(M_NP_2_MQM/TeVTokg,1);
+    
     
     const S = df *(1/2./WS)*eCharge*fm**3;
     document.getElementById('out_S_BSM').textContent = (S/eCharge/fm**3).toExponential(2);
     const dq_NSM=S/S_dq;
     document.getElementById('out_dq_NSM_BSM').textContent = (dq_NSM/cm).toExponential(2);
+    
+    const M_NP_1_NSM=Math.sqrt(1/dq_NSM*hbar/cLight*(g_dq**2/16/Math.PI**2)**1*mDownMass)
+    const M_NP_2_NSM=Math.sqrt(1/dq_NSM*hbar/cLight*(g_dq**2/16/Math.PI**2)**2*mDownMass)
+
+    document.getElementById('out_NP_1_S_BSM').textContent = financial(M_NP_1_NSM/TeVTokg,0);
+    document.getElementById('out_NP_2_S_BSM').textContent = financial(M_NP_2_NSM/TeVTokg,1);
+    
 }
 
 </script>
