@@ -206,7 +206,7 @@ tr:nth-child(even) {
   </div>
 </div>
 
-<h2>BSM Limit Calculator</h2>
+<h2>New Physics Mass-Scale Calculator</h2>
 
 
 <style>
@@ -377,17 +377,28 @@ function compute_BSM() {
     const GV = 1e9;
     const uHz = 1e-6;
     const auToHz = 44.;
+    const cLight=299792458;
+    const g_de=0.6;
+    const mElectronMass=9.1e-31;
+    const TeVTokg=1e12*eCharge/(cLight**2)
 
     const df = Number(document.getElementById('df_BSM').value)*uHz;
     const Eeff = Number(document.getElementById('Eeff_BSM').value)*GV/cm;
     const WM = Number(document.getElementById('WM_BSM').value)*1e33/eCharge/cm/cm;
     const WS = Number(document.getElementById('WS_BSM').value)*auToHz;
     
-    const de = df *(h/2/Eeff)/eCharge/cm;
-    document.getElementById('out_de_BSM').textContent = de.toExponential(2);
-
+    const de = df *(h/2/Eeff);
+    document.getElementById('out_de_BSM').textContent = (de/eCharge/cm).toExponential(2);
+    
+    const M_NP_1_de=Math.sqrt(1/de*eCharge*hbar/cLight*(g_de**2/16/Math.PI**2)**1*mElectronMass)
+    const M_NP_2_de=Math.sqrt(1/de*eCharge*hbar/cLight*(g_de**2/16/Math.PI**2)**2*mElectronMass)
+    
+    document.getElementById('out_NP_1_de_BSM').textContent = financial(M_NP_1_de/TeVTokg,0);
+    document.getElementById('out_NP_2_de_BSM').textContent = financial(M_NP_2_de/TeVTokg,1);
+    
     const M = df *(1/2/WM)/eCharge/cm/cm;
     document.getElementById('out_M_BSM').textContent = M.toExponential(2);
+    
 
     const S = df *(1/2/WS);
     document.getElementById('out_S_BSM').textContent = S.toExponential(2);
