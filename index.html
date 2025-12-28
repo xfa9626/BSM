@@ -209,6 +209,62 @@ tr:nth-child(even) {
 <h2>New Physics Mass-Scale Calculator</h2>
 
 
+    <!-- showing EDMs -->
+<div class="form-row">
+  <p><b>frequency resolution $\delta f:~$</b></p>
+  <input type="number" id="df_BSM" value="10.0" step="0.1"
+         style="width:60px;" oninput="compute_BSM()">  $\mu$Hz 
+</div>   
+    <!-- EDM -->
+<div class="form-row">
+  <label2>$\mathcal{E}_{\rm eff}$:</label2>
+  <input type="number" id="Eeff_BSM" value="78" step="1"
+         style="width:40px;" oninput="compute_BSM()">  GV/cm $~~~~~~~~~~~~~~~~~\rightarrow d_e =~$ <span id="out_de_BSM">0</span>$~e\cdot{\rm cm}$
+</div>   
+
+<div class="form-row2">
+  <label></label>$\boldsymbol{M_\textrm{NP} \textrm{(1-loop)} = }$<span id="out_NP_1_de_BSM">0</span>$~\boldsymbol{\mathrm{TeV}}$
+</div> 
+
+<div class="form-row2">
+  <label></label>$\boldsymbol{M_\textrm{NP} \textrm{(2-loop)} = }$<span id="out_NP_2_de_BSM">0</span>$~\boldsymbol{\mathrm{TeV}}$
+</div> 
+
+<!-- MQM -->
+<div class="form-row">
+  <label2>$W_M$:</label2>
+  <input type="number" id="WM_BSM" value="1.0" step="0.1"
+         style="width:40px;" oninput="compute_BSM()">  $\times10^{33}~$ Hz/$e\cdot\rm{cm}^2~$  $\rightarrow M =~$ <span id="out_M_BSM">0</span>$~e\cdot{\rm cm}^2$
+</div> 
+<div class="form-row">
+  $~~~M/\tilde{d}_q:$ <input type="number" id="Mdq" value="0.6" step="0.1"
+         style="width:40px;" oninput="compute_BSM()">$\times10^{-10}e\cdot\rm{cm}$  $ \rightarrow\tilde{d}_q= $ <span id="out_dq_MQM_BSM">0</span>$~\mathrm{cm}$
+</div> 
+
+<div class="form-row">
+  <label2></label2>$~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\boldsymbol{M_\textrm{NP} \textrm{(1-loop)} = }$ <span id="out_NP_1_M_BSM">0</span>$~\boldsymbol{\mathrm{TeV}}$
+</div>
+<div class="form-row">
+  <label2></label2>$~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\boldsymbol{M_\textrm{NP} \textrm{(2-loop)} = }$ <span id="out_NP_2_M_BSM">0</span>$~\boldsymbol{\mathrm{TeV}}$
+</div> 
+
+<!-- NSM -->
+<div class="form-row">
+  <label2>$W_S$:</label2>
+  <input type="number" id="WS_BSM" value="40000" step="1000"
+         style="width:60px;" oninput="compute_BSM()">  a.u. $~~~~~~~~~~~~~~~~~~\rightarrow S =~$ <span id="out_S_BSM">0</span>$~e\cdot{\rm fm}^3$
+</div>
+
+<div class="form-row">
+  $~~~S/\tilde{d}_q:$ <input type="number" id="Sdq" value="5000" step="100"
+         style="width:60px;" oninput="compute_BSM()">$e\cdot\rm{fm}^2~$    $~~~~~~\rightarrow \tilde{d}_q= $ <span id="out_dq_NSM_BSM">0</span>$~\mathrm{cm}$
+</div> 
+<div class="form-row">
+  <label2></label2>$~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\boldsymbol{M_\textrm{NP} \textrm{(1-loop)} = }$ <span id="out_NP_1_S_BSM">0</span>$~\boldsymbol{\mathrm{TeV}}$
+</div> <div class="form-row">
+  <label2></label2>$~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\boldsymbol{M_\textrm{NP} \textrm{(2-loop)} = }$ <span id="out_NP_2_S_BSM">0</span>$~\boldsymbol{\mathrm{TeV}}$
+</div> 
+
 <style>
 .row {
   display: flex;
@@ -231,18 +287,18 @@ min-width: 450px;
   font-size: 0.85em;
 }
 </style>
-
-<b>conversion from $\delta f$ to CP-violating moments</b><br><br>
+<br><br>
+<h2>Details about Conversion from $\delta f$ to $M_\mathrm{NP}$</h2>
     $\delta f = \frac{2}{h}\left(d_e\mathcal{E}_\textrm{eff} + C_{M}MW_M + C_{M}SW_S\right)$
 <br>
     
 $\delta f$: frequency resolution<br><br>
 $d_e$: electron electric dipole moment (EDM)<br>
-$\mathcal{E}_\textrm{eff}$: effective electric field<br><br><br>
+$\mathcal{E}_\textrm{eff}$: effective electric field<br>
 <span class="small-math">$C_{M}=\frac{2J+1}{2}\frac{\left(\begin{matrix}J&2&J\\-\Omega&0&\Omega\end{matrix}\right)}{\left(\begin{matrix}I&2&I\\-I&0&I\end{matrix}\right)}\left\{\begin{matrix}J&I&F\\I&J&2\end{matrix}\right\}\simeq0.1$</span>
 : MQM alignment factor<a href="http://dx.doi.org/10.1103/PhysRevLett.113.263006">[SPT2014]</a><br>
 $M$: nuclear magnetic quadrupole moment (MQM)<br>
-$W_M$: MQM sensitivity parameter<br><br><br>
+$W_M$: MQM sensitivity parameter<br>
 <span class="small-math">$C_{S}=(2J+1)\frac{\left(\begin{matrix}J&1&J\\-\Omega&0&\Omega\end{matrix}\right)}{\left(\begin{matrix}I&1&I\\-I&0&I\end{matrix}\right)}\left\{\begin{matrix}J&I&F\\I&J&1\end{matrix}\right\}\simeq0.7$</span>: NSM alignment factor<br>
 $S$: nuclear Schiff moment (NSM)<br>
 $W_S$: NSM sensitivity parameter<br><br><br>
@@ -281,60 +337,7 @@ $m_{q}$: quark's mass ($q=u,d$)<br>
 
 
 
-    <!-- showing EDMs -->
-<div class="form-row">
-  <p><b>frequency resolution $\delta f:~$</b></p>
-  <input type="number" id="df_BSM" value="10.0" step="0.1"
-         style="width:60px;" oninput="compute_BSM()">  $\mu$Hz 
-</div>   
-    <!-- EDM -->
-<div class="form-row">
-  <label2>$\mathcal{E}_{\rm eff}$:</label2>
-  <input type="number" id="Eeff_BSM" value="78" step="1"
-         style="width:40px;" oninput="compute_BSM()">  GV/cm $~~~~~~~~~~~~~~~~~\rightarrow d_e =~$ <span id="out_de_BSM">0</span>$~e\cdot{\rm cm}$
-</div>   
 
-<div class="form-row2">
-  <label></label>$\boldsymbol{M_\textrm{NP} \textrm{(1-loop)} = }$<span id="out_NP_1_de_BSM">0</span>$~\boldsymbol{\mathrm{TeV}}$
-</div> 
-
-<div class="form-row2">
-  <label></label>$\boldsymbol{M_\textrm{NP} \textrm{(2-loop)} = }$<span id="out_NP_2_de_BSM">0</span>$~\boldsymbol{\mathrm{TeV}}$
-</div> 
-
-<!-- MQM -->
-<div class="form-row">
-  <label2>$W_M$:</label2>
-  <input type="number" id="WM_BSM" value="1.0" step="0.1"
-         style="width:40px;" oninput="compute_BSM()">  $\times10^{33}~$ Hz/$e\cdot\rm{cm}^2~$  $\rightarrow M =~$ <span id="out_M_BSM">0</span>$~e\cdot{\rm cm}^2$
-</div> 
-<div class="form-row">
-  $~~~M/\tilde{d}_q:$ <input type="number" id="Mdq" value="0.6" step="0.1"
-         style="width:40px;" oninput="compute_BSM()">$\times10^{-10}e\cdot\rm{cm}~$  $~~~~ \tilde{d}_q= $ <span id="out_dq_MQM_BSM">0</span>$~\mathrm{cm}$
-</div> 
-
-<div class="form-row">
-  <label2></label2>$~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\boldsymbol{M_\textrm{NP} \textrm{(1-loop)} = }$ <span id="out_NP_1_M_BSM">0</span>$~\boldsymbol{\mathrm{TeV}}$
-</div>
-<div class="form-row">
-  <label2></label2>$~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\boldsymbol{M_\textrm{NP} \textrm{(2-loop)} = }$ <span id="out_NP_2_M_BSM">0</span>$~\boldsymbol{\mathrm{TeV}}$
-</div> 
-<div class="form-row">
-  <label2>$W_S$:</label2>
-  <input type="number" id="WS_BSM" value="40000" step="1000"
-         style="width:60px;" oninput="compute_BSM()">  a.u. $~~~~~~~~~~~~~~~~~~\rightarrow S =~$ <span id="out_S_BSM">0</span>$~e\cdot{\rm fm}^3$
-</div>
-
-<!-- NSM -->
-<div class="form-row">
-  $~~~S/\tilde{d}_q:$ <input type="number" id="Sdq" value="5000" step="100"
-         style="width:60px;" oninput="compute_BSM()">$e\cdot\rm{fm}^2~$    $~~~~~~~~~~~~ \tilde{d}_q= $ <span id="out_dq_NSM_BSM">0</span>$~\mathrm{cm}$
-</div> 
-<div class="form-row">
-  <label2></label2>$~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\boldsymbol{M_\textrm{NP} \textrm{(1-loop)} = }$ <span id="out_NP_1_S_BSM">0</span>$~\boldsymbol{\mathrm{TeV}}$
-</div> <div class="form-row">
-  <label2></label2>$~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\boldsymbol{M_\textrm{NP} \textrm{(2-loop)} = }$ <span id="out_NP_2_S_BSM">0</span>$~\boldsymbol{\mathrm{TeV}}$
-</div> 
 <script>
 function compute_Beam() {
     
