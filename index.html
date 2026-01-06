@@ -140,7 +140,7 @@ tr:nth-child(even) {
 
   <div class="panel">
         <div class="caption">beam type </div>
-        <div class="example">(e.g. ACME I-III) </div>
+        <div class="example">(e.g. ACME EDM) </div>
     <img src="df_Beam.png" width="250">
 
     <div class="form-row">
@@ -166,8 +166,37 @@ tr:nth-child(even) {
     </div> 
 
 
+
   <div class="panel">
-    <div class="caption">trap type – no multiplexing </div>
+    <div class="caption">trap type</div>
+    <div class="example">(e.g. JILA EDM)</div>
+    <img src="df_Trap_Multi.png" width="250">
+    <div class="form-row">
+      <label>Spin precession time:</label>
+      <input type="number" value="20.0" id="tau_Trap_Multi"  step="0.1"  oninput="compute_Trap_Multi()" style="width:80px;"> s
+    </div>
+        <div class="form-row">
+      <label>Rep rate:</label>
+      <input type="number" value="2" id="Frep_Trap_Multi" oninput="compute_Trap_Multi()" style="width:80px;"> Hz
+    </div>
+    <div class="form-row">
+      <label>N per shot:</label>
+      <input type="number" value="50" id="Nshot_Trap_Multi" oninput="compute_Trap_Multi()" style="width:80px;">
+    </div>
+
+    <div class="form-row">
+      <label>Data acquisition:</label>
+      <input type="number" value="1" id="DAQ_Trap_Multi" oninput="compute_Trap_Multi()" style="width:80px;"> day
+    </div>
+    
+    <p>$\rightarrow\delta f$ = <span id="out_df_Multi">0</span> $\mu$Hz</p>
+
+    
+  </div>
+
+
+  <div class="panel">
+    <div class="caption">trap type ($\small{f_\mathrm{rep}=1/\tau}$) </div>
     <div class="example">(e.g. JILA EDM I&II, molecules in ODT)</div>
     <img src="df_Trap.png" width="250">
     <div class="form-row">
@@ -189,34 +218,8 @@ tr:nth-child(even) {
     
     </div> 
 
-
-  <div class="panel">
-    <div class="caption">trap type – multiplexed</div>
-    <div class="example">(e.g. JILA EDM III)</div>
-    <img src="df_Trap_Multi.png" width="250">
-    <div class="form-row">
-      <label>Spin precession time:</label>
-      <input type="number" value="20.0" id="tau_Trap_Multi"  step="0.1"  oninput="compute_Trap_Multi()" style="width:80px;"> s
-    </div>
-    <div class="form-row">
-      <label>N per shot:</label>
-      <input type="number" value="50" id="Nshot_Trap_Multi" oninput="compute_Trap_Multi()" style="width:80px;">
-    </div>
-    <div class="form-row">
-      <label>Rep rate:</label>
-      <input type="number" value="2" id="Frep_Trap_Multi" oninput="compute_Trap_Multi()" style="width:80px;"> Hz
-    </div>
-    <div class="form-row">
-      <label>Data acquisition:</label>
-      <input type="number" value="1" id="DAQ_Trap_Multi" oninput="compute_Trap_Multi()" style="width:80px;"> day
-    </div>
-    
-    <p>$\rightarrow\delta f$ = <span id="out_df_Multi">0</span> $\mu$Hz</p>
-
-    
   </div>
-  </div>
-</div>
+
 <h2>New Physics Mass-Scale Calculator <a href="https://arxiv.org/pdf/2203.08103">[AAA2022]</a></h2> 
 
   <h4>
