@@ -132,8 +132,8 @@ tr:nth-child(even) {
 <body>
 
 <h1>EDM Limit Calculator</h1>
-<center>maintained by <a href="https://fanresearchgroup.hsites.harvard.edu/">Fan Group</a></center>
-  <center>2026-Jan-7</center>
+<center>maintained by the <a href="https://fanresearchgroup.hsites.harvard.edu/">Fan Group</a></center>
+  <center><span id="lastModified"></span></</center>
 
 <h2>Frequency Resolution Calculator</h2>
 
@@ -825,6 +825,13 @@ function compute_BSM() {
     
 }
 
+</script>
+
+<script>
+  var lastModifiedDate = new Date(document.lastModified);
+  var options = { year: 'numeric', month: 'long', day: 'numeric' };
+  var formattedDate = lastModifiedDate.toLocaleDateString(undefined, options); // undefined uses the user's browser locale
+  document.getElementById('lastModified').textContent = formattedDate;
 </script>
 
 <script>
