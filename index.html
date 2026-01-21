@@ -133,7 +133,7 @@ tr:nth-child(even) {
 
 <h1>EDM Limit Calculator</h1>
 <center>maintained by <a href="https://fanresearchgroup.hsites.harvard.edu/">Fan Group</a></center>
-  <center>2026-Jan-7</center>
+  <center><span id="datetime"></span></center>
 
 <h2>Frequency Resolution Calculator</h2>
 
@@ -841,7 +841,21 @@ function financial(x,i) {
 </script>
 
 
+<script>
+        // Get the current date object
+        var today = new Date();
+        
+        // Format the date into a readable string (e.g., "January 21, 2026")
+        var formattedDate = today.toLocaleDateString(undefined, { 
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+        });
 
+        // Set the content of the HTML element
+        document.getElementById("datetime").textContent = formattedDate;
+    </script>
 
 
 
